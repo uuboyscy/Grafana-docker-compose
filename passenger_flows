@@ -1,0 +1,8 @@
+SELECT
+  $__timeGroupAlias(datetime,1h),
+  count(userID) AS "Passenger_flows"
+FROM (SELECT * FROM transaction GROUP BY orderID) AS tmp
+WHERE
+  $__timeFilter(datetime)
+GROUP BY 1
+ORDER BY $__timeGroup(datetime,1h)
